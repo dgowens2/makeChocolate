@@ -11,11 +11,10 @@ import static org.junit.Assert.*;
  */
 public class ChocolateSolverTest {
 
-    ChocolateSolver solver;
+    ChocolateSolver solver = new ChocolateSolver();
 
     @Before
     public void setUp() throws Exception {
-        solver = new ChocolateSolver();
     }
 
     @After
@@ -56,7 +55,7 @@ public class ChocolateSolverTest {
     @Test
     public void TestBothEvenBigGoal() throws Exception {
         int numSmalls = solver.makeChocolate(40, 40, 80);
-        assertEquals(40, numSmalls);
+        assertEquals(0, numSmalls);
     }
 
     @Test
@@ -85,6 +84,42 @@ public class ChocolateSolverTest {
     @Test
     public void TestAllSmallsSmallGoal() throws Exception {
         int numSmalls = solver.makeChocolate(4, 0, 4);
+        assertEquals(4, numSmalls);
+    }
+
+    @Test
+    public void testManyMoreBigsAndSmallsThanNecessary() throws Exception {
+        int numSmalls = solver.makeChocolate(1524, 900, 50);
+        assertEquals(0, numSmalls);
+    }
+
+    @Test
+    public void testNotEnoughBigsToMakeGoal() throws Exception {
+        int numSmalls = solver.makeChocolate(55, 2, 76);
+        assertEquals(-1, numSmalls);
+    }
+
+    @Test
+    public void testNotEnoughSmallsToMakeGoal() throws Exception {
+        int numSmalls = solver.makeChocolate(3, 4, 44);
+        assertEquals(-1, numSmalls);
+    }
+
+    @Test
+    public void testSuperHighGoal() throws Exception {
+        int numSmalls = solver.makeChocolate(3358, 2930, 1572);
+        assertEquals(2, numSmalls);
+    }
+
+    @Test
+    public void testMidRangeGoalSuperHighBigs() throws Exception {
+        int numSmalls = solver.makeChocolate(20, 2930, 98);
+        assertEquals(3, numSmalls);
+    }
+
+    @Test
+    public void testMidRangeGoalSuperHighSmalls() throws Exception {
+        int numSmalls = solver.makeChocolate(3358, 30, 99);
         assertEquals(4, numSmalls);
     }
 }
